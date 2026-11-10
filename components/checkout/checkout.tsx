@@ -3,11 +3,12 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check } from "lucide-react";
+import { Check, MessageCircle } from "lucide-react";
 import { clearBag, lineImage, lineKey, lineName, productById, totalsFor, useBag } from "@/lib/bag";
 import { EXPRESS_DELIVERY_AED } from "@/lib/bag-totals";
 import { PayMark } from "@/components/site/pay-mark";
-import { saveOrder, type Order, type Payment, type Speed } from "@/lib/orders";
+import { newOrderId, orderMessage, saveOrder, type Order, type Payment, type Speed } from "@/lib/orders";
+import { whatsappHref } from "@/lib/site";
 import { formatPrice } from "@/lib/products";
 
 const EMIRATES = ["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"];
@@ -22,7 +23,8 @@ type Contact = Order["contact"];
 type Delivery = Order["delivery"];
 
 // Structure p.15: three steps on one page. Completed steps collapse to one line with Edit.
-// Guest checkout only. DEMO: no payment is taken and nothing is sent.
+// Guest checkout. Placing the order opens WhatsApp with the whole order written out for the
+// store; card and Tabby are paid through a link the store sends back in that chat.
 export function Checkout() {
   const lines = useBag();
   const router = useRouter();
@@ -58,9 +60,14 @@ export function Checkout() {
   const placeOrder = (e: React.FormEvent) => {
     e.preventDefault();
     setPlacing(true);
-    const id = saveOrder({ lines, contact, delivery, payment, totals: { subtotal: base.subtotal, delivery: deliveryFee, total } });
+    const order = { id: newOrderId(), contact, delivery, payment, totals: { subtotal: base.subtotal, delivery: deliveryFee, total } };
+    const text = orderMessage(order, lines.map((l) => ({ name: lineName(l), size: l.size, qty: l.qty, price: productById(l.id).price })));
+    // Opened inside the click so browsers allow it; the confirmation page has the same link
+    // in case it was blocked.
+    window.open(whatsappHref(text), "_blank", "noopener");
+    saveOrder({ ...order, lines });
     clearBag();
-    router.push(`/order/${id}`);
+    router.push(`/order/${order.id}`);
   };
 
   const Step = ({ n, title, summary, children }: { n: number; title: string; summary: string; children: React.ReactNode }) => {
@@ -87,7 +94,7 @@ export function Checkout() {
     <div className="grid gap-8 px-4 py-6 md:grid-cols-12 md:gap-12 md:px-0 md:py-10">
       <div className="md:col-span-7">
         <h1 className="text-4xl font-medium md:text-5xl">Checkout</h1>
-        <p className="mt-2 inline-block rounded-[2px] bg-sand px-2 py-1 text-xs text-ink">Demo store: no payment is taken</p>
+        <p className="mt-2 text-sm text-muted-foreground">Your order is sent to us on WhatsApp, and we confirm it in the chat.</p>
 
         <div className="mt-4 border-t">
           {Step({
@@ -144,7 +151,7 @@ export function Checkout() {
               <form onSubmit={placeOrder} className="grid gap-4">
                 <fieldset className="grid gap-2">
                   <legend className="sr-only">Payment method</legend>
-                  {([["cod", "Cash on delivery", "Pay in cash when it arrives."], ["tabby", "Tabby", `4 payments of ${formatPrice(Math.ceil(total / 4))}.`], ["card", "Card", "Visa or Mastercard."]] as [Payment, string, string][]).map(([v, name, note]) => (
+                  {([["cod", "Cash on delivery", "Pay in cash when it arrives."], ["tabby", "Tabby", `4 payments of ${formatPrice(Math.ceil(total / 4))}, by link.`], ["card", "Card", "Visa or Mastercard, by link."]] as [Payment, string, string][]).map(([v, name, note]) => (
                     <label key={v} className={choice}>
                       <span className="flex items-center gap-3"><input type="radio" name="payment" checked={payment === v} onChange={() => setPayment(v)} className="size-4 accent-[var(--ink)]" />{name}
                         {v === "tabby" && <PayMark name="tabby" />}
@@ -154,9 +161,9 @@ export function Checkout() {
                     </label>
                   ))}
                 </fieldset>
-                {/* Card and Tabby are shown for the pitch only: no card details are ever asked for. */}
-                {payment !== "cod" && <p className="text-sm text-muted-foreground">In this demo {payment === "card" ? "card payment" : "Tabby"} is not connected. Placing the order takes no payment.</p>}
-                <div><button type="submit" disabled={placing} className={`${filled} disabled:opacity-60`}>Place order (demo) · {formatPrice(total)}</button></div>
+                {/* Card details are never typed into this site: the store sends a secure payment link. */}
+                {payment !== "cod" && <p className="text-sm text-muted-foreground">We send a secure {payment === "card" ? "card" : "Tabby"} payment link in the WhatsApp chat once we confirm your order.</p>}
+                <div><button type="submit" disabled={placing} className={`${filled} gap-2 disabled:opacity-60`}><MessageCircle className="size-4" aria-hidden />Send order on WhatsApp · {formatPrice(total)}</button></div>
               </form>
             ),
           })}

@@ -1,8 +1,11 @@
 // The store's WhatsApp number in international format (e.g. 971501234567), set in
 // NEXT_PUBLIC_WHATSAPP_NUMBER (see .env.example). Spaces and "+" are stripped. While it is
-// empty, wa.me opens WhatsApp and lets the shopper pick a chat, so the demo never
-// messages a stranger.
+// empty, wa.me opens WhatsApp and lets the shopper pick a chat, so nothing is sent to
+// a wrong number.
 export const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+
+// Where the contact form sends messages (it opens the shopper's email app, ready to send).
+export const CONTACT_EMAIL = "talmeezmzp@gmail.com";
 
 // The live address, for share previews, the sitemap and canonical links.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");

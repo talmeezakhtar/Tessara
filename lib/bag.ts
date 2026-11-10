@@ -4,7 +4,7 @@ import { colourOf } from "./collection";
 import { PRODUCTS, formatPrice, type Product, type Size } from "./products";
 
 // Bag kept on this device (localStorage), like the wishlist in structure p.16.
-// ponytail: no server cart; move to one when checkout stops being a demo.
+// ponytail: no server cart; add one with a real order API.
 /** `colour` is set when the piece was bought in one of its other colourways. */
 export type BagLine = { id: string; size: Size; qty: number; colour?: string };
 

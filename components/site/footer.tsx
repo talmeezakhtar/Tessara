@@ -28,17 +28,17 @@ export function SiteFooter() {
     <DoodleCrewFooter
       wordmark="TESSARA"
       brand="tessara"
-      blurb="Everyday women's wear, delivered across the UAE in 1 to 3 days. Pay in cash at the door."
+      blurb="Everyday clothing for women and men, delivered across the UAE in 1 to 3 days. Pay in cash at the door."
       tagline="New pieces every season, brought to your door anywhere in the UAE."
       columns={COLUMNS}
       actions={[
         { label: "Shop new in", href: "/new", icon: "sparkle", variant: "outline" },
         { label: "Chat on WhatsApp", href: whatsappHref(), icon: "heart", variant: "solid" },
       ]}
-      // Payment labels show what the store accepts; in the demo they are a label, not a promise.
+      // Ways to pay: cash at the door, or card and Tabby by a link sent on WhatsApp.
       copyright={
         <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-2">
-          © Tessara · Demo store
+          © Tessara
           <span className="inline-flex items-center gap-1.5">
             <PayMark name="visa" /><PayMark name="mastercard" /><PayMark name="tabby" />
             <span>· Cash on delivery</span>

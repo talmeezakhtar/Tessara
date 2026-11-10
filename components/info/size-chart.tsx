@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-// PLACEHOLDER measurements (body, in cm) until the boutique sends its own chart.
+// Body measurements in cm. Check against the pieces when new stock arrives.
 const ROWS = [
   { size: "XS", bust: [80, 84], waist: [62, 66], hip: [86, 90] },
   { size: "S", bust: [84, 88], waist: [66, 70], hip: [90, 94] },
@@ -60,7 +60,7 @@ export function SizeChart() {
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-xs text-muted-foreground">Body measurements, not garment measurements. Sample figures for the demo.</p>
+      <p className="mt-3 text-xs text-muted-foreground">Body measurements, not garment measurements. Each product page says if a piece runs small or large.</p>
     </div>
   );
 }

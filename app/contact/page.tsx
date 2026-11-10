@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { ContactForm } from "@/components/info/contact-form";
 import { PageHeader } from "@/components/site/page-header";
-import { whatsappHref } from "@/lib/site";
+import { CONTACT_EMAIL, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Contact · Tessara", description: "Chat with Tessara on WhatsApp or send a message." };
 
@@ -30,11 +30,14 @@ export default function ContactPage() {
               <dd className="mt-1">Every day, 10 am to 10 pm (UAE time)</dd>
             </div>
             <div>
+              <dt className="text-muted-foreground">Email</dt>
+              <dd className="mt-1"><a href={`mailto:${CONTACT_EMAIL}`} className={`underline underline-offset-4 ${focus}`}>{CONTACT_EMAIL}</a></dd>
+            </div>
+            <div>
               <dt className="text-muted-foreground">Delivery and exchanges</dt>
               <dd className="mt-1"><Link href="/help" className={`underline underline-offset-4 ${focus}`}>Read the help page</Link></dd>
             </div>
           </dl>
-          <p className="mt-6 text-xs text-muted-foreground">Sample hours for the demo.</p>
         </section>
 
         <section aria-labelledby="form-title" className="md:col-span-7">

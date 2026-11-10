@@ -1,7 +1,7 @@
 // Pure bag maths, kept free of app imports so `npm test` can run it under plain Node.
 
 export const FREE_DELIVERY_AED = 200;
-// PLACEHOLDER: standard delivery under the free threshold. Confirm with the boutique.
+// Standard delivery under the free threshold.
 export const STANDARD_DELIVERY_AED = 15;
 // Express, next day, always charged (structure p.15).
 export const EXPRESS_DELIVERY_AED = 25;

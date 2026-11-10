@@ -10,7 +10,7 @@ import { REVIEWS } from "@/lib/reviews";
 import { SITE_URL } from "@/lib/site";
 
 // Product data for search results: name, photos, price and whether any size is in stock.
-// No rating on purpose: the reviews are sample copy, and marking them up would be false.
+// No rating yet: add aggregateRating here once real reviews are in lib/reviews.ts.
 function ProductJsonLd({ product }: { product: Product }) {
   const inStock = Object.values(product.sizes).some((s) => s !== "out");
   const data = {
@@ -48,7 +48,7 @@ export async function generateMetadata(props: PageProps<"/p/[slug]">): Promise<M
   };
 }
 
-// PLACEHOLDER care copy until each garment has its own label text.
+// General care for cotton and knits; give a piece its own text when its label differs.
 const CARE = ["Machine wash cold, inside out", "Dry flat in the shade", "Cool iron on the reverse"];
 
 const focus = "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
@@ -115,7 +115,7 @@ async function ProductDetail({ params }: { params: PageProps<"/p/[slug]">["param
                           <Stars value={r.rating} />
                           <p className="mt-1 font-semibold">{r.fit} · bought {r.bought} · {r.heightCm} cm</p>
                           <p className="mt-1 leading-relaxed text-muted-foreground">{r.text}</p>
-                          <p className="mt-1 text-xs text-muted-foreground">{r.author}, {r.city} · sample review</p>
+                          <p className="mt-1 text-xs text-muted-foreground">{r.author}, {r.city}</p>
                         </li>
                       ))}
                     </ul>

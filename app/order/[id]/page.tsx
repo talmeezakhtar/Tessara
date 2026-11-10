@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { OrderView } from "@/components/checkout/order-view";
 
-export const metadata: Metadata = { title: "Order received · Tessara", robots: { index: false } };
+export const metadata: Metadata = { title: "Your order · Tessara", robots: { index: false } };
 
-// Demo orders live on the shopper's device, so the client reads the id and the order.
+// The order copy lives on the shopper's device, so the client reads the id and the order.
 export default function OrderPage() {
   return (
     <main className="w-full">

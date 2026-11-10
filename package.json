@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --no-warnings lib/size.check.mjs && node --no-warnings lib/site.check.mjs && node --no-warnings lib/bag-totals.check.mjs && node --no-warnings lib/collection.check.mjs && node --no-warnings lib/search.check.mjs"
+    "test": "node --no-warnings lib/size.check.mjs && node --no-warnings lib/site.check.mjs && node --no-warnings lib/bag-totals.check.mjs && node --no-warnings lib/collection.check.mjs && node --no-warnings lib/search.check.mjs && node --no-warnings lib/orders.check.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

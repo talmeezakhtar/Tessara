@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Check, MessageCircle } from "lucide-react";
 import { lineImage, lineKey, lineName, productById } from "@/lib/bag";
-import { useOrder, type Payment } from "@/lib/orders";
+import { orderMessage, useOrder, type Payment } from "@/lib/orders";
 import { formatPrice } from "@/lib/products";
 import { whatsappHref } from "@/lib/site";
 
@@ -21,25 +21,26 @@ export function OrderView() {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 px-4 py-16 text-center">
         <h1 className="text-4xl font-medium">We can&apos;t find that order</h1>
-        <p className="max-w-[40ch] text-sm text-muted-foreground">Demo orders are kept on the device they were placed on. Ask us on WhatsApp if you need help.</p>
+        <p className="max-w-[40ch] text-sm text-muted-foreground">Order details are kept on the device the order was placed on. Ask us on WhatsApp if you need help.</p>
         <Link href="/" className={`text-sm text-lagoon underline underline-offset-4 ${focus}`}>Go to the shop</Link>
       </div>
     );
   }
 
   const express = order.delivery.speed === "express";
+  const sendText = orderMessage(order, order.lines.map((l) => ({ name: lineName(l), size: l.size, qty: l.qty, price: productById(l.id).price })));
   const next = [
-    "We confirm your order on WhatsApp, usually within the hour.",
+    "Send the order message in WhatsApp. We confirm it in the chat, usually within the hour.",
     `It arrives at ${order.delivery.area}, ${order.delivery.emirate} ${express ? "tomorrow" : "in 1 to 3 days"}.`,
-    order.payment === "cod" ? `You pay ${formatPrice(order.totals.total)} in cash at the door.` : "Exchanges are free for 14 days if anything doesn't fit.",
+    order.payment === "cod" ? `You pay ${formatPrice(order.totals.total)} in cash at the door.` : `We send a secure ${PAY[order.payment]} payment link in the chat.`,
   ];
 
   return (
     <div className="mx-auto grid max-w-2xl gap-8 px-4 py-10 md:py-16">
       <div className="text-center">
         <span aria-hidden className="mx-auto grid size-14 place-items-center rounded-full bg-lagoon text-pearl"><Check className="size-6" /></span>
-        <h1 className="mt-5 text-4xl font-medium md:text-5xl">Order received</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Order <span className="font-mono font-semibold text-foreground">{order.id}</span> · Demo only, no payment was taken</p>
+        <h1 className="mt-5 text-4xl font-medium md:text-5xl">Almost done</h1>
+        <p className="mt-2 text-sm text-muted-foreground">Order <span className="font-mono font-semibold text-foreground">{order.id}</span> · Send it on WhatsApp to confirm</p>
       </div>
 
       <section aria-labelledby="next-title" className="rounded-[2px] bg-secondary p-5 md:p-8">
@@ -53,8 +54,8 @@ export function OrderView() {
           ))}
         </ol>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <a href={whatsappHref(`Hi Tessara, can I track order ${order.id}?`)} target="_blank" rel="noopener noreferrer" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-[2px] bg-lagoon px-6 text-sm font-medium text-pearl transition-opacity hover:opacity-90 ${focus}`}>
-            <MessageCircle className="size-4" aria-hidden />Track on WhatsApp
+          <a href={whatsappHref(sendText)} target="_blank" rel="noopener noreferrer" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-[2px] bg-lagoon px-6 text-sm font-medium text-pearl transition-opacity hover:opacity-90 ${focus}`}>
+            <MessageCircle className="size-4" aria-hidden />Send order on WhatsApp
           </a>
           <Link href="/new" className={`inline-flex min-h-12 items-center justify-center rounded-[2px] border border-foreground px-6 text-sm font-medium transition-colors hover:bg-foreground hover:text-background ${focus}`}>
             Keep shopping

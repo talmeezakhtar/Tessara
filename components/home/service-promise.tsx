@@ -3,7 +3,6 @@ import { MessageCircle } from "lucide-react";
 import { whatsappHref } from "@/lib/site";
 
 // Section 12: three promises, each answering a real worry.
-// PLACEHOLDER: delivery times and terms are demo values, not promises.
 const PROMISES = [
   { title: "Delivery", worry: "When will it arrive?", text: "1 to 3 days anywhere in the UAE. Free over AED 200, and you can pay in cash at the door.", href: "/help#delivery", link: "Delivery by emirate" },
   { title: "Exchanges", worry: "What if it doesn't fit?", text: "Exchange for another size or piece within 14 days. Unworn, tags on, and we collect it.", href: "/help#returns", link: "How exchanges work" },

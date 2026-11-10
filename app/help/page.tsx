@@ -8,7 +8,7 @@ import { whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Help · Tessara", description: "Delivery by emirate, exchanges and answers to common questions." };
 
-// PLACEHOLDER delivery times by emirate: demo values, not promises (structure p.17 note 5).
+// Delivery times by emirate (structure p.17 note 5). Keep in step with the courier's.
 const EMIRATES = [
   { name: "Dubai", standard: "1 to 2 days", express: true },
   { name: "Sharjah", standard: "1 to 2 days", express: true },
@@ -79,7 +79,7 @@ export default function HelpPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">Sample times for the demo.</p>
+            <p className="mt-3 text-xs text-muted-foreground">Working days, counted from when we confirm your order on WhatsApp.</p>
           </section>
 
           <section id="returns" aria-labelledby="returns-title" className="scroll-mt-24">

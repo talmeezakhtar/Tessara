@@ -10,8 +10,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Tessara · Everyday women's wear in the UAE",
-  description: "Everyday women's wear with free delivery over AED 200 across the UAE, cash on delivery and exchanges within 14 days.",
+  title: "Tessara · Everyday clothing in the UAE",
+  description: "Everyday clothing for women and men, with free delivery over AED 200 across the UAE, cash on delivery and exchanges within 14 days.",
   openGraph: { siteName: "Tessara", type: "website", locale: "en_AE" },
   twitter: { card: "summary_large_image" },
 };
