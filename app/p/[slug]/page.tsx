@@ -6,7 +6,7 @@ import { Stars } from "@/components/home/reviews";
 import { ProductCard } from "@/components/product-card";
 import { ProductHero } from "@/components/product/product-hero";
 import { PRODUCTS, formatPrice, type Product } from "@/lib/products";
-import { REVIEWS } from "@/lib/reviews";
+import { EXAMPLE_REVIEWS, REVIEWS } from "@/lib/reviews";
 import { SITE_URL } from "@/lib/site";
 
 // Product data for search results: name, photos, price and whether any size is in stock.
@@ -115,7 +115,7 @@ async function ProductDetail({ params }: { params: PageProps<"/p/[slug]">["param
                           <Stars value={r.rating} />
                           <p className="mt-1 font-semibold">{r.fit} · bought {r.bought} · {r.heightCm} cm</p>
                           <p className="mt-1 leading-relaxed text-muted-foreground">{r.text}</p>
-                          <p className="mt-1 text-xs text-muted-foreground">{r.author}, {r.city}</p>
+                          <p className="mt-1 text-xs text-muted-foreground">{r.author}, {r.city}{EXAMPLE_REVIEWS && " · example review"}</p>
                         </li>
                       ))}
                     </ul>

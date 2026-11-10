@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PRODUCTS } from "@/lib/products";
-import { REVIEWS } from "@/lib/reviews";
+import { EXAMPLE_REVIEWS, REVIEWS } from "@/lib/reviews";
 
 // Section 11: fit notes from buyers, not stars alone. Hidden until lib/reviews.ts has real ones.
 const average = REVIEWS.length ? REVIEWS.reduce((sum, r) => sum + r.rating, 0) / REVIEWS.length : 0;
@@ -24,6 +24,7 @@ export function Reviews() {
           <h2 id="reviews-title" className="text-3xl font-medium md:text-4xl">Reviews</h2>
           <p className="mt-6 font-heading text-6xl font-medium leading-none">{average.toFixed(1)}</p>
           <p className="mt-2 text-sm text-muted-foreground">Average from {REVIEWS.length} reviews</p>
+          {EXAMPLE_REVIEWS && <p className="mt-4 inline-block rounded-[2px] bg-sand px-2 py-1 text-xs text-ink">Example reviews</p>}
         </div>
 
         <ul className="grid gap-4 md:col-span-8 md:grid-cols-3">

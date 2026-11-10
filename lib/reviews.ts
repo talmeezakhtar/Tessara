@@ -1,6 +1,6 @@
-// Customer reviews. REVIEWS is empty until real ones come in: the home section and the
-// product page stars hide while it is empty. SAMPLE_REVIEWS shows the format; never publish
-// them as real (invented reviews mislead shoppers and break UAE consumer law).
+// Customer reviews. SAMPLE_REVIEWS are written examples, not from real buyers: while they
+// are shown, the site labels them, because invented reviews presented as real mislead
+// shoppers and break UAE consumer law.
 export type Review = {
   author: string;
   city: string;
@@ -18,4 +18,7 @@ export const SAMPLE_REVIEWS: Review[] = [
   { author: "Sara H.", city: "Sharjah", productId: "breton-long-sleeve", rating: 5, fit: "True to size", bought: "M", heightCm: 171, text: "Sleeves are long enough for me, which never happens. Washed twice and still in shape." },
 ];
 
-export const REVIEWS: Review[] = [];
+// Shown on the site for now, labelled as examples. When real reviews arrive, put them in
+// REVIEWS instead and set EXAMPLE_REVIEWS to false so the label goes.
+export const EXAMPLE_REVIEWS = true;
+export const REVIEWS: Review[] = SAMPLE_REVIEWS;
